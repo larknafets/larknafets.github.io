@@ -1,8 +1,8 @@
-// Lädt beim Aufruf die aktuelle README, daher kein Build und kein Workflow nötig.
-const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const ENT = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" };
+const esc = s => s.replace(/[&<>"]/g, ch => ENT[ch]);
 const span = (c, s) => `<span class="${c}">${s}</span>`;
+const DOTS = `<span class="dot r"></span>` + ["y", "g"].map(c => `<button class="dot ${c}" aria-label="Ein-/ausblenden"></button>`).join("");
 
-// Färbt eine Zeile Shell-Ausgabe; unbekannte Zeilen bleiben unverändert. Zahlen nur mit nums (Stats-Block).
 function color(line, nums) {
   const l = esc(line);
   let m;
@@ -13,25 +13,30 @@ function color(line, nums) {
   return l.replace(/^●/, span("ok", "●")).replace(/\(running\)/, span("ok", "(running)")).replace(/&quot;200 OK&quot;/, span("ok", "&quot;200 OK&quot;"));
 }
 
+function setup(code) {
+  const pre = code.parentNode, text = code.textContent, lines = text.split("\n"), stats = /\bgh stats\b/.test(text);
+  const dots = document.createElement("div");
+  dots.className = "dots";
+  dots.innerHTML = DOTS;
+  const set = off => {
+    pre.classList.toggle("off", off);
+    dots.querySelectorAll("button").forEach(b => b.setAttribute("aria-expanded", !off));
+  };
+  pre.dataset.cmd = lines[0];
+  code.innerHTML = lines.map(l => color(l, stats)).join("\n");
+  pre.prepend(dots);
+  pre.addEventListener("click", e => {
+    const off = pre.classList.contains("off");
+    if (off || e.target.closest("button")) set(!off);
+  });
+  set(stats);
+}
+
 fetch("https://raw.githubusercontent.com/larknafets/larknafets/main/README.md")
   .then(r => r.ok ? r.text() : Promise.reject(r.status))
   .then(md => {
     const el = document.getElementById("content");
     el.innerHTML = DOMPurify.sanitize(marked.parse(md));
-    el.querySelectorAll("pre code").forEach(c => {
-      const stats = /\bgh stats\b/.test(c.textContent), pre = c.parentNode;
-      pre.dataset.cmd = c.textContent.split("\n")[0];
-      c.innerHTML = c.textContent.split("\n").map(l => color(l, stats)).join("\n");
-      // Gelber und grüner Punkt blenden die Box ein und aus; Stats starten ausgeblendet.
-      const dots = document.createElement("div");
-      dots.className = "dots";
-      const dot = (tag, c, label) => { const d = document.createElement(tag); d.className = "dot " + c; if (label) d.setAttribute("aria-label", label); dots.append(d); return d; };
-      dot("span", "r");
-      const set = off => { pre.classList.toggle("off", off); toggles.forEach(b => b.setAttribute("aria-expanded", !off)); };
-      const toggles = ["y", "g"].map(c => dot("button", c, "Ein-/ausblenden"));
-      toggles.forEach(b => b.onclick = e => { e.stopPropagation(); set(!pre.classList.contains("off")); });
-      pre.onclick = () => { if (pre.classList.contains("off")) set(false); }; // kein `&&`: ein onclick mit false-Rückgabe würde Links blockieren
-      pre.prepend(dots); set(stats);
-    });
+    el.querySelectorAll("pre code").forEach(setup);
   })
   .catch(e => { document.getElementById("content").textContent = "Could not load README (" + e + ")."; });
