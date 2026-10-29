@@ -1,6 +1,7 @@
 :root {
+  color-scheme: dark;
   --bg: #1a1b26; --panel: #16161e; --fg: #c0caf5; --dim: #565f89;
-  --green: #9ece6a; --blue: #7aa2f7; --cyan: #7dcfff; --magenta: #bb9af7; --yellow: #e0af68;
+  --red: #f7768e; --green: #9ece6a; --blue: #7aa2f7; --cyan: #7dcfff; --yellow: #e0af68;
 }
 body { margin: 0; background: var(--bg); color: var(--fg); font: min(15px, 2.3vw)/1.5 ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
 main { max-width: 52rem; margin: 0 auto; padding: 2rem 1rem; display: grid; gap: 1.5rem; }
@@ -10,11 +11,10 @@ pre { margin: 0; position: relative; overflow-x: auto; padding: 2.6rem 1.25rem 1
 .dot { box-sizing: border-box; width: 16px; height: 16px; padding: 2px; border: 0; border-radius: 50%; background: var(--c) content-box; }
 button.dot { cursor: pointer; }
 .dot:not(.r)::after { content: ""; display: block; height: 12px; opacity: 0; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='%23000' fill-opacity='.6'%3E%3Cpath d='M8.5 2.5h-6v6zM3.5 9.5h6v-6z'/%3E%3C/svg%3E"); }
-.dot.r { --c: #f7768e; } .dot.y { --c: #e0af68; } .dot.g { --c: #9ece6a; }
+.dot.r { --c: var(--red); } .dot.y { --c: var(--yellow); } .dot.g { --c: var(--green); }
 .dot.y::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' stroke='%23000' stroke-opacity='.6' stroke-width='1.4'%3E%3Cpath d='M3 6h6'/%3E%3C/svg%3E"); }
 .dots:hover .dot::after, pre.off .dot::after { opacity: 1; }
-pre.off { cursor: pointer; }
-pre.off { padding-bottom: 0; height: 0; overflow: hidden; }
+pre.off { padding-bottom: 0; height: 0; overflow: hidden; cursor: pointer; }
 pre.off code { display: none; }
 pre.off::after { content: attr(data-cmd); position: absolute; top: 9px; left: 84px; color: var(--dim); white-space: nowrap; }
 /* Handy: engere Ränder, damit die 61 Zeichen langen Zeilen ohne Scrollen passen */
@@ -26,7 +26,7 @@ code { font: inherit; white-space: pre; }
 .key { color: var(--blue); }
 .ok { color: var(--green); }
 .num { color: var(--yellow); }
-.add { color: var(--green); } .del { color: #f7768e; }
+.add { color: var(--green); } .del { color: var(--red); }
 .hash { color: var(--yellow); }
 a { color: var(--cyan); }
 img { max-width: 100%; }
