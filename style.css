@@ -12,9 +12,9 @@ button.dot { cursor: pointer; }
 .dot:not(.r)::after { content: ""; display: block; height: 12px; opacity: 0; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='%23000' fill-opacity='.6'%3E%3Cpath d='M8.5 2.5h-6v6zM3.5 9.5h6v-6z'/%3E%3C/svg%3E"); }
 .dot.r { --c: #f7768e; } .dot.y { --c: #e0af68; } .dot.g { --c: #9ece6a; }
 .dot.y::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' stroke='%23000' stroke-opacity='.6' stroke-width='1.4'%3E%3Cpath d='M3 6h6'/%3E%3C/svg%3E"); }
-.dots:hover .dot::after, pre.off:hover .dot::after { opacity: 1; }
+.dots:hover .dot::after, pre.off .dot::after { opacity: 1; }
 pre.off { cursor: pointer; }
-pre.off { padding-bottom: 0; height: 2.6rem; overflow: hidden; }
+pre.off { padding-bottom: 0; height: 0; overflow: hidden; }
 pre.off code { display: none; }
 pre.off::after { content: attr(data-cmd); position: absolute; top: 9px; left: 84px; color: var(--dim); white-space: nowrap; }
 /* Handy: engere Ränder, damit die 61 Zeichen langen Zeilen ohne Scrollen passen */
