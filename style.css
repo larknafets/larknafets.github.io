@@ -2,7 +2,7 @@
   --bg: #1a1b26; --panel: #16161e; --fg: #c0caf5; --dim: #565f89;
   --green: #9ece6a; --blue: #7aa2f7; --cyan: #7dcfff; --magenta: #bb9af7; --yellow: #e0af68;
 }
-body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: min(15px, 2.3vw)/1.5 ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
 main { max-width: 52rem; margin: 0 auto; padding: 2rem 1rem; display: grid; gap: 1.5rem; }
 pre { margin: 0; position: relative; overflow-x: auto; padding: 2.6rem 1.25rem 1.1rem; background: var(--panel); border: 1px solid #2a2e45; border-radius: 10px; box-shadow: 0 8px 24px #0006; }
 /* Fensterleiste: rot (ohne Funktion), gelb und grün blenden die Box ein und aus; Symbole wie beim Mac beim Überfahren */
@@ -17,6 +17,8 @@ pre.off { cursor: pointer; }
 pre.off { padding-bottom: 0; height: 2.6rem; overflow: hidden; }
 pre.off code { display: none; }
 pre.off::after { content: attr(data-cmd); position: absolute; top: 9px; left: 84px; color: var(--dim); white-space: nowrap; }
+/* Handy: engere Ränder, damit die 61 Zeichen langen Zeilen ohne Scrollen passen */
+@media (max-width: 600px) { main { padding: 1rem .5rem; } pre { padding-left: .9rem; padding-right: .9rem; } }
 code { font: inherit; white-space: pre; }
 .prompt { color: var(--green); font-weight: bold; }
 .cmd { color: #fff; }
