@@ -1,0 +1,20 @@
+:root {
+  --bg: #1a1b26; --panel: #16161e; --fg: #c0caf5; --dim: #565f89;
+  --green: #9ece6a; --blue: #7aa2f7; --cyan: #7dcfff; --magenta: #bb9af7; --yellow: #e0af68;
+}
+body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+main { max-width: 52rem; margin: 0 auto; padding: 2rem 1rem; display: grid; gap: 1.5rem; }
+pre { margin: 0; position: relative; overflow-x: auto; padding: 2.6rem 1.25rem 1.1rem; background: var(--panel); border: 1px solid #2a2e45; border-radius: 10px; box-shadow: 0 8px 24px #0006; }
+/* Fensterleiste mit den drei Punkten */
+pre::before { content: ""; position: absolute; top: 14px; left: 14px; width: 12px; height: 12px; border-radius: 50%; background: #f7768e; box-shadow: 20px 0 #e0af68, 40px 0 #9ece6a; }
+code { font: inherit; white-space: pre; }
+.prompt { color: var(--green); font-weight: bold; }
+.cmd { color: #fff; }
+.dim { color: var(--dim); }
+.key { color: var(--blue); }
+.ok { color: var(--green); }
+.num { color: var(--yellow); }
+.add { color: var(--green); } .del { color: #f7768e; }
+.hash { color: var(--yellow); }
+a { color: var(--cyan); }
+img { max-width: 100%; }
