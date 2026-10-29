@@ -7,7 +7,7 @@ function color(line, nums) {
   const l = esc(line);
   let m;
   if ((m = l.match(/^(\S+@\S+:\S*\$)( .*)$/))) return span("prompt", m[1]) + span("cmd", m[2]);
-  if ((m = l.match(/^([A-Za-z ]+?) (\.+) (.*)$/))) return span("key", m[1]) + " " + span("dim", m[2]) + " " + (nums ? m[3].replace(/[+-]?\d[\d.,]*[kKyYm]?/g, x => span(x[0] == "+" ? "add" : x[0] == "-" ? "del" : "num", x)) : m[3]);
+  if ((m = l.match(/^([\w -]+?) (\.+) (.*)$/))) return span("key", m[1]) + " " + span("dim", m[2]) + " " + (nums ? m[3].replace(/[+-]?\d[\d.,]*[kKyYm]?/g, x => span(x[0] == "+" ? "add" : x[0] == "-" ? "del" : "num", x)) : m[3]);
   if ((m = l.match(/^([0-9a-f]{7}) (.*)$/))) return span("hash", m[1]) + " " + m[2];
   if ((m = l.match(/^(\S+)(\s+-&gt;\s+)(.*)$/))) return span("key", m[1]) + span("dim", m[2]) + `<a href="https://${m[3]}" target="_blank" rel="noopener noreferrer">${m[3]}</a>`;
   return l.replace(/^●/, span("ok", "●")).replace(/\(running\)/, span("ok", "(running)")).replace(/&quot;200 OK&quot;/, span("ok", "&quot;200 OK&quot;"));
