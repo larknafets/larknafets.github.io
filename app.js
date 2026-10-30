@@ -2,6 +2,9 @@ const ENT = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" };
 const esc = s => s.replace(/[&<>"]/g, ch => ENT[ch]);
 const span = (c, s) => `<span class="${c}">${s}</span>`;
 const DOTS = `<span class="dot r"></span>` + ["y", "g"].map(c => `<button class="dot ${c}" aria-label="Ein-/ausblenden"></button>`).join("");
+const BASE = 15;
+let queued = 0;
+const refit = () => queued ||= requestAnimationFrame(() => { queued = 0; fit(); });
 
 function color(line, nums) {
   const l = esc(line);
@@ -32,11 +35,29 @@ function setup(code) {
   set(stats);
 }
 
+function fit() {
+  const codes = [...document.querySelectorAll("pre code")];
+  if (!codes.length) return;
+  const pre = codes[0].parentNode, cs = getComputedStyle(pre), probe = document.createElement("span");
+  document.body.style.fontSize = BASE + "px";
+  probe.style.cssText = "position:absolute;visibility:hidden;white-space:pre";
+  probe.textContent = "x".repeat(100);
+  codes[0].append(probe);
+  const ratio = probe.getBoundingClientRect().width / 100 / BASE;
+  probe.remove();
+  const cols = Math.max(...codes.flatMap(c => c.textContent.split("\n").map(l => [...l].length)));
+  const room = pre.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+  document.body.style.fontSize = Math.min(BASE, room / (cols * ratio)) + "px";
+}
+
 fetch("https://raw.githubusercontent.com/larknafets/larknafets/main/site/README.md")
   .then(r => r.ok ? r.text() : Promise.reject(r.status))
   .then(md => {
     const el = document.getElementById("content");
     el.innerHTML = DOMPurify.sanitize(marked.parse(md));
     el.querySelectorAll("pre code").forEach(setup);
+    fit();
+    document.fonts.ready.then(refit);
+    addEventListener("resize", refit);
   })
   .catch(e => { document.getElementById("content").textContent = "Could not load README (" + e + ")."; });

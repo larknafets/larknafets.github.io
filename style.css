@@ -5,7 +5,7 @@
   --bg: #1a1b26; --panel: #16161e; --fg: #c0caf5; --dim: #565f89;
   --red: #f7768e; --green: #9ece6a; --blue: #7aa2f7; --cyan: #7dcfff; --yellow: #e0af68;
 }
-body { margin: 0; background: var(--bg); color: var(--fg); font: min(15px, 2.3vw)/1.5 "Monaspace Neon", ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+body { -webkit-text-size-adjust: 100%; margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 "Monaspace Neon", ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
 main { max-width: 52rem; margin: 0 auto; padding: 2rem 1rem; display: grid; gap: 1.5rem; }
 pre { font-family: inherit; margin: 0; position: relative; overflow-x: auto; padding: 2.6rem 1.25rem 1.1rem; background: var(--panel); border: 1px solid #2a2e45; border-radius: 10px; box-shadow: 0 8px 24px #0006; }
 /* Fensterleiste: rot (ohne Funktion), gelb und grün blenden die Box ein und aus; Symbole wie beim Mac beim Überfahren */
@@ -19,7 +19,7 @@ button.dot { cursor: pointer; }
 pre.off { padding-bottom: 0; height: 0; overflow: hidden; cursor: pointer; }
 pre.off code { display: none; }
 pre.off::after { content: attr(data-cmd); position: absolute; top: 9px; left: 84px; color: var(--dim); white-space: nowrap; }
-/* Handy: engere Ränder, damit die 61 Zeichen langen Zeilen ohne Scrollen passen */
+/* Handy: engere Ränder, damit app.js die Schrift weniger verkleinern muss */
 @media (max-width: 600px) { main { padding: 1rem .5rem; } pre { padding-left: .9rem; padding-right: .9rem; } }
 code { font: inherit; white-space: pre; }
 .prompt { color: var(--green); font-weight: bold; }
