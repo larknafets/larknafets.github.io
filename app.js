@@ -37,18 +37,15 @@ function setup(code) {
 
 function fit() {
   width = innerWidth;
-  const codes = [...document.querySelectorAll("pre code")];
-  if (!codes.length) return;
-  const pre = codes[0].parentNode, cs = getComputedStyle(pre), probe = document.createElement("span");
+  const pres = [...document.querySelectorAll("pre")];
+  if (!pres.length) return;
+  const folded = pres.filter(p => p.classList.contains("off"));
+  folded.forEach(p => p.classList.remove("off"));
   document.body.style.fontSize = BASE + "px";
-  probe.style.cssText = "position:absolute;visibility:hidden;white-space:pre";
-  probe.textContent = "x".repeat(100);
-  codes[0].append(probe);
-  const ratio = probe.getBoundingClientRect().width / 100 / BASE;
-  probe.remove();
-  const cols = Math.max(...codes.flatMap(c => c.textContent.split("\n").map(l => [...l].length)));
-  const room = pre.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
-  document.body.style.fontSize = Math.min(BASE, room / (cols * ratio)) + "px";
+  const cs = getComputedStyle(pres[0]), room = pres[0].clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+  const need = Math.max(...pres.map(p => p.querySelector("code").getBoundingClientRect().width));
+  if (need > room) document.body.style.fontSize = BASE * room / need * 0.98 + "px";
+  folded.forEach(p => p.classList.add("off"));
 }
 
 fetch("https://raw.githubusercontent.com/larknafets/larknafets/main/site/README.md")
@@ -58,7 +55,7 @@ fetch("https://raw.githubusercontent.com/larknafets/larknafets/main/site/README.
     el.innerHTML = DOMPurify.sanitize(marked.parse(md));
     el.querySelectorAll("pre code").forEach(setup);
     fit();
-    document.fonts.ready.then(fit);
+    document.fonts.addEventListener("loadingdone", fit);
     addEventListener("resize", () => { if (innerWidth !== width) fit(); });
   })
   .catch(e => { document.getElementById("content").innerHTML = `Could not load README (${esc(String(e))}). <a href="${PAGE}">Read it on GitHub</a>.`; });
