@@ -1,11 +1,13 @@
+@font-face { font-family: "Monaspace Neon"; src: url("fonts/MonaspaceNeon-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Monaspace Neon"; src: url("fonts/MonaspaceNeon-Bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
 :root {
   color-scheme: dark;
   --bg: #1a1b26; --panel: #16161e; --fg: #c0caf5; --dim: #565f89;
   --red: #f7768e; --green: #9ece6a; --blue: #7aa2f7; --cyan: #7dcfff; --yellow: #e0af68;
 }
-body { margin: 0; background: var(--bg); color: var(--fg); font: min(15px, 2.3vw)/1.5 ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: min(15px, 2.3vw)/1.5 "Monaspace Neon", ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
 main { max-width: 52rem; margin: 0 auto; padding: 2rem 1rem; display: grid; gap: 1.5rem; }
-pre { margin: 0; position: relative; overflow-x: auto; padding: 2.6rem 1.25rem 1.1rem; background: var(--panel); border: 1px solid #2a2e45; border-radius: 10px; box-shadow: 0 8px 24px #0006; }
+pre { font-family: inherit; margin: 0; position: relative; overflow-x: auto; padding: 2.6rem 1.25rem 1.1rem; background: var(--panel); border: 1px solid #2a2e45; border-radius: 10px; box-shadow: 0 8px 24px #0006; }
 /* Fensterleiste: rot (ohne Funktion), gelb und grün blenden die Box ein und aus; Symbole wie beim Mac beim Überfahren */
 .dots { position: absolute; top: 12px; left: 12px; display: flex; gap: 4px; }
 .dot { box-sizing: border-box; width: 16px; height: 16px; padding: 2px; border: 0; border-radius: 50%; background: var(--c) content-box; }
