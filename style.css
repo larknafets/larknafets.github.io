@@ -7,7 +7,7 @@
 }
 body { -webkit-text-size-adjust: 100%; margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 "Monaspace Neon", ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
 main { max-width: 52rem; margin: 0 auto; padding: 2rem 1rem; display: grid; gap: 1.5rem; }
-pre { font-family: inherit; margin: 0; position: relative; overflow-x: auto; padding: 2.6rem 1.25rem 1.1rem; background: var(--panel); border: 1px solid #2a2e45; border-radius: 10px; box-shadow: 0 8px 24px #0006; }
+pre { font-family: inherit; margin: 0; position: relative; padding: 2.6rem 1.25rem 1.1rem; background: var(--panel); border: 1px solid #2a2e45; border-radius: 10px; box-shadow: 0 8px 24px #0006; }
 /* Fensterleiste: rot (ohne Funktion), gelb und grün blenden die Box ein und aus; Symbole wie beim Mac beim Überfahren */
 .dots { position: absolute; top: 12px; left: 12px; display: flex; gap: 4px; }
 .dot { box-sizing: border-box; width: 16px; height: 16px; padding: 2px; border: 0; border-radius: 50%; background: var(--c) content-box; }

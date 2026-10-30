@@ -4,8 +4,7 @@ const span = (c, s) => `<span class="${c}">${s}</span>`;
 const DOTS = `<span class="dot r"></span><button class="dot y" tabindex="-1" aria-label="Toggle"></button><button class="dot g" aria-label="Toggle"></button>`;
 const BASE = 15;
 const PAGE = "https://github.com/larknafets/larknafets/blob/main/site/README.md";
-let queued = 0;
-const refit = () => queued ||= requestAnimationFrame(() => { queued = 0; fit(); });
+let width = 0;
 
 function color(line, nums, tone) {
   const l = esc(line);
@@ -37,6 +36,7 @@ function setup(code) {
 }
 
 function fit() {
+  width = innerWidth;
   const codes = [...document.querySelectorAll("pre code")];
   if (!codes.length) return;
   const pre = codes[0].parentNode, cs = getComputedStyle(pre), probe = document.createElement("span");
@@ -58,7 +58,7 @@ fetch("https://raw.githubusercontent.com/larknafets/larknafets/main/site/README.
     el.innerHTML = DOMPurify.sanitize(marked.parse(md));
     el.querySelectorAll("pre code").forEach(setup);
     fit();
-    document.fonts.ready.then(refit);
-    addEventListener("resize", refit);
+    document.fonts.ready.then(fit);
+    addEventListener("resize", () => { if (innerWidth !== width) fit(); });
   })
   .catch(e => { document.getElementById("content").innerHTML = `Could not load README (${esc(String(e))}). <a href="${PAGE}">Read it on GitHub</a>.`; });
