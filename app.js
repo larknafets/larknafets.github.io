@@ -1,8 +1,9 @@
 const ENT = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" };
 const esc = s => s.replace(/[&<>"]/g, ch => ENT[ch]);
 const span = (c, s) => `<span class="${c}">${s}</span>`;
-const DOTS = `<span class="dot r"></span>` + ["y", "g"].map(c => `<button class="dot ${c}" aria-label="Ein-/ausblenden"></button>`).join("");
+const DOTS = `<span class="dot r"></span><button class="dot y" tabindex="-1" aria-label="Toggle"></button><button class="dot g" aria-label="Toggle"></button>`;
 const BASE = 15;
+const PAGE = "https://github.com/larknafets/larknafets/blob/main/site/README.md";
 let queued = 0;
 const refit = () => queued ||= requestAnimationFrame(() => { queued = 0; fit(); });
 
@@ -60,4 +61,4 @@ fetch("https://raw.githubusercontent.com/larknafets/larknafets/main/site/README.
     document.fonts.ready.then(refit);
     addEventListener("resize", refit);
   })
-  .catch(e => { document.getElementById("content").textContent = "Could not load README (" + e + ")."; });
+  .catch(e => { document.getElementById("content").innerHTML = `Could not load README (${esc(String(e))}). <a href="${PAGE}">Read it on GitHub</a>.`; });
