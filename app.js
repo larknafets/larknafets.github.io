@@ -32,7 +32,7 @@ function setup(code) {
   set(stats);
 }
 
-fetch("https://raw.githubusercontent.com/larknafets/larknafets/main/README.md")
+fetch("https://raw.githubusercontent.com/larknafets/larknafets/main/site/README.md")
   .then(r => r.ok ? r.text() : Promise.reject(r.status))
   .then(md => {
     const el = document.getElementById("content");
