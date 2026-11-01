@@ -2,7 +2,7 @@
 @font-face { font-family: "Monaspace Neon"; src: url("fonts/MonaspaceNeon-Bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
 :root {
   color-scheme: dark;
-  --bg: #1a1b26; --panel: #16161e; --fg: #c0caf5; --dim: #7a84b0;
+  --bg: #1a1b26; --panel: #16161e; --fg: #c0caf5; --dim: #7a84b0; --log: #9099c0;
   --red: #f7768e; --green: #9ece6a; --blue: #7aa2f7; --cyan: #7dcfff; --yellow: #e0af68;
 }
 body { -webkit-text-size-adjust: 100%; margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 "Monaspace Neon", ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
@@ -25,6 +25,7 @@ code { font: inherit; white-space: pre; }
 .prompt { color: var(--green); font-weight: bold; }
 .cmd { color: #fff; }
 .dim { color: var(--dim); }
+.log { color: var(--log); }
 .key { color: var(--blue); }
 .ok { color: var(--green); }
 .num { color: var(--yellow); }

@@ -26,7 +26,8 @@ function setup(code) {
     dots.querySelectorAll("button").forEach(b => b.setAttribute("aria-expanded", !off));
   };
   pre.dataset.cmd = lines[0];
-  code.innerHTML = lines.map(l => color(l, stats, tone)).join("\n");
+  let log = false;
+  code.innerHTML = lines.map(l => (log = /^\w+\[\d+\]: /.test(l) || (log && /^\s/.test(l))) ? span("log", esc(l)) : color(l, stats, tone)).join("\n");
   pre.prepend(dots);
   pre.addEventListener("click", e => {
     const off = pre.classList.contains("off");
