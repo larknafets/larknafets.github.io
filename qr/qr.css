@@ -1,0 +1,2 @@
+main { min-height: 100vh; box-sizing: border-box; place-content: center; justify-items: center; }
+img { width: min(100%, 28rem); height: auto; border-radius: 10px; box-shadow: 0 8px 24px #0006; }
