@@ -26,6 +26,7 @@ function setup(code) {
     dots.querySelectorAll("button").forEach(b => b.setAttribute("aria-expanded", !off));
   };
   pre.dataset.cmd = lines[0];
+  pre.id = (lines[0].match(/~\/(\w+)|\b(neofetch|log|stats|status)\b/) || []).slice(1).find(Boolean) || "";
   let log = false;
   code.innerHTML = lines.map(l => (log = /^\w+\[\d+\]: /.test(l) || (log && /^\s/.test(l))) ? span("log", esc(l)) : color(l, stats, tone)).join("\n");
   pre.prepend(dots);
@@ -56,6 +57,7 @@ fetch("https://raw.githubusercontent.com/larknafets/larknafets/main/site/README.
     el.innerHTML = DOMPurify.sanitize(marked.parse(md));
     el.querySelectorAll("pre code").forEach(setup);
     fit();
+    if (location.hash) document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView();
     document.fonts.addEventListener("loadingdone", fit);
     addEventListener("resize", () => { if (innerWidth !== width) fit(); });
   })
